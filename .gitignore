@@ -1,0 +1,10 @@
+aligned/
+bowtie2_index/
+reference/
+trimmed/
+FASTQ/
+tmp/
+*.fastq
+*.bam
+*.sam
+counts.txt

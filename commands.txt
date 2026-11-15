@@ -1,0 +1,181 @@
+    1  sudo apt && sudo apt upgrade -y
+    2  wsl --update
+    3  wsl --list --verbose
+    4  cd /mnt/d
+    5  ls -lah
+    6  mkdir -p/mnt/d/bioinformatics
+    7  cd /mnt/d/bioinformatics
+    8  mkdir -p /mnt/d/sneha-bioinfo
+    9  cd /mnt/d/sneha-bioinfo
+   10  pwd
+   11  sudo apt update
+   12  sudo apt install -y sra-toolkit
+   13  prefetch --version
+   14  faster-dump --version
+   15  fasterq-dump --version
+   16  mkdir -p /mnt/d/SRA
+   17  mkdir -p /mnt/d/FASTQ
+   18  mkdir -p /mnt/d/SRA-cache
+   19  vdb-config -s /repository/user/main/public/root=/mnt/d/SRA-cache
+   20  vdb-config -s
+   21  cd /mnt/d/SRA
+   22  prefetch SRR566971
+   23  find /mnt/d/sneha-bioinfo/SRA
+   24  ls -lh /mnt/d/
+   25  vdb-validate /mnt/d/SRA/SRR566971/SRR566971.sra
+   26  mkdir -p /mnt/d/FASTQ
+   27  mkdir -p /mnt/d/tmp/SRR566971
+   28  fasterq-dump /mnt/d/tmp/SRR566971
+   29  fasterq-dump /mnt/d/tmp/SRR566971 --outdir /mnt/d/FATSQ --temp /mnt/d/tmp/SRR566971 -e 6
+   30  fasterq-dump /mnt/d/tmp/SRA/SRR566971 --outdir /mnt/d/FATSQ --temp /mnt/d/tmp/SRR566971 -e 6
+   31  fasterq-dump /mnt/d/tmp/SRA/SRR566971 --outdir /mnt/d/FASTQ --temp /mnt/d/tmp/SRR566971 -e 6
+   32  find /mnt/d -maxdepth -maxdepth 3 -type f -name "SRR566971*" -ls
+   33  find /mnt/d -maxdepth 3 -type f -name "SRR566971*" -ls
+   34  fasterq-dump /mnt/d/sra/SRR566971.sra --outdir /mnt/d/FASTQ --temp /mnt/d/tmp/SRR566971 -e 6
+   35  fasterq-dump /mnt/d/SRA-cache/sra/SRR566971.sra --outdir /mnt/d/FASTQ --temp /mnt/d/tmp/SRR566971 -e 6
+   36  ls -lh /mnt/d/FASTQ/
+   37  head -n 4 /mnt/d/FASTQ/SRR566971.fastq
+   38  mkdir
+   39  mkdir -p /mnt/d/sneha-bioinfo/FASTQ
+   40  mkdir -p /mnt/d/sneha-bioinfo/tmp/SRR566971
+   41  fasterq-dump\/mnt/d/sneha-bioinfo/SRA/SRR566971\ --split-files
+   42  fasterq-dump/mnt/d/sneha-bioinfo/SRA/SRR566971\ 
+   43  fastqc --version
+   44  sudo apt install fastqc
+   45  mkdir -p /mnt/d/FastQC
+   46  fastqc /mnt/d/FASTQ/SRR566971.fastq -o /mnt/d/FastQC
+   47  ls -lh /mnt/d/FastQC/
+   48  sudo apt install -y multiqc
+   49  mkdir -p /mnt/d/bioinformatics/QC/MultiQC
+   50  multiqc /mnt/d/bioinformatics/QC/FastQC -o /mnt/d/bioinformatics/QC/MultiQC
+   51  multiqc --help
+   52  --help
+   53  ubuntu --help
+   54  Ubuntu --help
+   55  fastqc --help
+   56  mkdir -p /mnt/d/bioinformatics/QC/MultiQC
+   57  multiqc /mnt/d/bioinformatics/QC/FastQC -o /mnt/d/bioinformatics/QC/MultiQC
+   58  mkdir -p /mnt/d/sneha-bioinfo/QC/MultiQC
+   59  multiqc /mnt/d/sneha-bioinfo/QC/FastQC -o /mnt/d/sneha-bioinfo/QC/MultiQC
+   60  ls -lh /mnt/d/FastQC
+   61  multiqc /mnt/d/mnt/FastQC -O /MNT/D/SNEHA-BIOINFO
+   62  multiqc /mnt/d/mnt/FastQC -o /mnt/d/sneha-bioinfo/QC/MultiQC
+   63  multiqc /mnt/d/FastQC -o /mnt/d/sneha-bioinfo/QC/MultiQC
+   64  explorer.exe /mnt/d/sneha-bioinfo/QC/MultiQC/multiqc_report.html
+   65  ls -lh /mnt/d/FASTQ/
+   66  mkdir -p /mnt/d/sneha-bioinfo/trimmed
+   67  sudo apt install -y fastp
+   68  fastp -i /mnt/d/FASTQ/SRR566971.fastq -o /mnt/d/sneha-bioinfo/trimmed/SRR566971_clean.fastq -h /mnt/d/sneha-bioinfo/trimmed/fastp_report.html -j /mnt/d/sneha-bioinfo/trimmed/fastp_report.json --thread 4
+   69  ls -lh /mnt/d/sneha-bioinfo/trimmed/
+   70  explorer.exe /mnt/d/sneha-bioinfo/trimmed/FASTP/fastp_report.html
+   71  sudo apt install -y bowtie2 samtools
+   72  mkdir -p /mnt/d/sneha-bioinfo/bowtie2_index
+   73  cd /mnt/d/sneha-bioinfo/bowtie2_index
+   74  wget https://genome-idx.s3.amazonaws.com/bt/mm10.zip
+   75  unzip mm10.zip
+   76  ls -lh
+   77  bowtie2 -x /mnt/d/sneha-bioinfo/bowtie2_index/mm10 -U /mnt/d/sneha-bioinfo/trimmed/SRR566971_clean.fastq -S /mnt/d/sneha-bioinfo/aligned/SRR566971.sam --thread 4
+   78  ls -lh /mnt/d/sneha-bioinfo/aligned/
+   79  mkdir -p /mnt/d/sneha-bioinfo/aligned
+   80  bowtie2 -x /mnt/d/sneha-bioinfo/bowtie2_index/mm10 -U /mnt/d/sneha-bioinfo/trimmed/SRR566971_clean.fastq -S /mnt/d/sneha-bioinfo/aligned/SRR566971.sam --thread 4
+   81  ls -lh /mnt/d/sneha-bioinfo/trimmed/
+   82  ls -lh /mnt/d/sneha-bioinfo/bowtie2_index/
+   83  ls -lh /mnt/d/sneha-bioinfo/aligned/
+   84  mkdir -p /mnt/d/sneha-bioinfo/aligned
+   85  bowtie2 -x /mnt/d/sneha-bioinfo/bowtie2_index/mm10 -U /mnt/d/sneha-bioinfo/trimmed/SRR566971_clean.fastq -S /mnt/d/sneha-bioinfo/aligned/SRR566971.sam
+   86  history > /mnt/d/sneha-bioinfo/commands.txt
+   87  passwd
+   88  sudo passwd sneha-dell
+   89  wsl -d Ubuntu-24.04 --user root
+   90  passwd sneha-dell
+   91  sudo echo ho
+   92  cd~
+   93  pwd
+   94  cd ~
+   95  pwd
+   96  wsl --status
+   97  wsl -l -v
+   98  ps aux | grep bowtie2
+   99  ls -lh /mnt/d/sneha-bioinfo/aligned/
+  100  samtools view -bs /mnt/d/sneha-bioinfo/aligned/SRR566971.sam > /mnt/d/sneha-bioinfo/aligned/SRR566971.bam
+  101  samtools view -bS /mnt/d/sneha-bioinfo/aligned/SRR566971.sam > /mnt/d/sneha-bioinfo/aligned/SRR566971.bam
+  102  samtools view -b /mnt/d/sneha-bioinfo/aligned/SRR566971.sam -o /mnt/d/sneha-bioinfo/aligned/SRR566971.bam
+  103  rm /mnt/d/sneha-bioinfo/aligned/SRR566971.bam
+  104  samtools view -@ 4 -b /mnt/d/sneha-bioinfo/aligned/SRR566971.sam -o /mnt/d/sneha-bioinfo/aligned/SRR566971.bam
+  105  ls -lh /mnt/d/sneha-bioinfo/aligned/
+  106  samtools sort -@ 4 -o /mnt/d/sneha-bioinfo/aligned/SRR566971.sorted.bam /mnt/d/sneha-bioinfo/aligned/SRR566971.bam
+  107  ls -lh /mnt/d/sneha-bioinfo/aligned/
+  108  samtools index /mnt/d/sneha-bioinfo/aligned/SRR566971.sorted.bam
+  109  ls -lh /mnt/d/sneha-bioinfo/aligned/
+  110  explorer.exe /mnt/d/sneha-bioinfo/aligned/SRR566971.sorted.bam.bai
+  111  ls -lh /mnt/d/sneha-bioinfo/
+  112  find /mnt/d/sneha-bioinfo/ -name "*.gtf*"
+  113  mkdir -p /mnt/d/sneha-bioinfo/reference
+  114  cd /mnt/d/sneha-bioinfo/reference
+  115  wget https://ftp.ensembl.org/pub/release-109/gtf/mus_musculus/Mus_musculus.GRCm39.109.gtf.gz
+  116  gunzip Mus_musculus.GRCm39.109.gtf.gz
+  117  ls -lh
+  118  featureCounts -v
+  119  sudo apt install subread
+  120  find /mnt/d/sneha-bioinfo/ -name "*.bam" -exec ls -lh {} \;
+  121  cd /mnt/d/sneha-bioinfo/
+  122  featureCounts -a /mnt/d/sneha-bioinfo/reference/Mus_musculus.GRCm39.109.gtf -o counts.txt -T 4 -p -t exon -g gene_id aligned/SRR566971.sorted.bam
+  123  ls -lh counts.txt
+  124  free -h
+  125  ls -lh /mnt/d/sneha-bioinfo/reference/
+  126  head -5 /mnt/d/sneha-bioinfo/reference/Mus_musculus.GRCm39.109.gtf
+  127  mkdir -p ~/work && cp /mnt/d/sneha-bioinfo/reference/Mus_musculus.GRCm39.109.gtf ~/work/
+  128  cp /mnt/d/sneha-bioinfo/aligned/SRR566971.sorted.bam ~/work/
+  129  cd ~/work
+  130  featureCounts -p -a Mus_musculus.GRCm39.109.gtf -o counts.txt SRR566971.sorted.bam
+  131  head -5 counts.txt
+  132  wc -l counts.txt
+  133  head -5 counts.txt
+  134  pwd
+  135  ls
+  136  featureCounts -a Mus_musculus.GRCm39.109.gtf -o counts.txt SRR566971.sorted.bam
+  137  head -5 counts.txt
+  138  wc -l counts.txt
+  139  cat counts.txt.summary
+  140  head -5 counts.txt
+  141  cp counts.txt /mnt/d/sneha-bioinfo/
+  142  cp counts.txt.summary /mnt/d/sneha-bioinfo/
+  143  tail -n +3 counts.txt | sort -k7 -nr | head -10
+  144  awk 'NR>2 {print $1, $7}' counts.txt | sort -k2 -nr | head -10
+  145  python3 -c "
+import pandas as pd
+import matplotlib.pyplot as plt
+df = pd.read_csv('counts.txt', sep='\t', comment='#', index_col=0)
+counts = df.iloc[:,5]
+top10 = counts.sort_values(ascending=False).head(10)
+plt.figure(figsize=(10,6))
+top10.plot(kind='barh')
+plt.xlabel('Counts')
+plt.title('Top 10 Highly Expressed Genes - SRR566971')
+plt.gca().invert_yaxis()
+plt.tight_layout()
+plt.savefig('/mnt/d/sneha-bioinfo/top10_genes.png')
+print('Graph ban gaya!')
+"
+  146  pip3 install pandas matplotlib --break-system-externally-managed
+  147  sudo apt install python-pip
+  148  python3 -c "
+lines=open('counts.txt').read().splitlines()[2:]
+data=[]
+for l in lines:
+    p=l.split()
+    data.append((p[0], int(p[6])))
+data.sort(key=lambda x: x[1], reverse=True)
+top=data[:10]
+maxc=top[0][1]
+svg='<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"900\" height=\"500\"><rect width=\"900\" height=\"500\" fill=\"white\"/><text x=\"20\" y=\"30\" font-size=\"20\" font-family=\"sans-serif\">Top 10 Genes - SRR566971</text>'
+y=60
+for g,c in top:
+    w=int(c/maxc*600)
+    svg+=f'<text x=\"20\" y=\"{y+15}\" font-size=\"13\" font-family=\"monospace\">{g}</text><rect x=\"250\" y=\"{y}\" width=\"{w}\" height=\"20\" fill=\"#4ECDC4\"/><text x=\"{260+w}\" y=\"{y+15}\" font-size=\"13\">{c}</text>'
+    y+=40
+svg+='</svg>'
+open('/mnt/d/sneha-bioinfo/top10_genes.svg','w').write(svg)
+print('Ban gaya!')
+"
+  149  history > /mnt/d/sneha-bioinfo/commands.txt
